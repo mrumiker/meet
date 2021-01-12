@@ -13,7 +13,7 @@ describe('<CitySearch /> component', () => {
     CitySearchWrapper = shallow(<CitySearch locations={locations} />);
   });
 
-  test('render text input', () => {
+  test('renders text input', () => {
     expect(CitySearchWrapper.find('.city')).toHaveLength(1);
   });
   test('renders a list of suggestions', () => {
