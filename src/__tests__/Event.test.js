@@ -19,4 +19,8 @@ describe('<Event /> component', () => {
   test('renders Details button', () => {
     expect(EventSearchWrapper.find('.details-button')).toHaveLength(1);
   });
+  test('event Details collapsed by default', () => {
+    EventSearchWrapper.setState({ selected: false });
+    expect(EventSearchWrapper.find(".event-details")).toHaveLength(0);
+  })
 });
