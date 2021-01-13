@@ -48,4 +48,9 @@ describe('<Event /> component', () => {
     expect(EventSearchWrapper.find('.event-details')).toHaveLength(0);
     expect(EventSearchWrapper.find('.details-button').text()).toBe('Details');
   });
+  test('Given that details are expanded, Details button text reads "Collapse"', () => {
+    EventSearchWrapper.setState({ selected: true });
+    expect(EventSearchWrapper.find('.event-details')).toHaveLength(1);
+    expect(EventSearchWrapper.find('.details-button').text()).toBe('Collapse');
+  });
 });
