@@ -19,23 +19,15 @@ describe('<Event /> component', () => {
   test('renders Details button', () => {
     expect(EventSearchWrapper.find('.details-button')).toHaveLength(1);
   });
-  test('event Details are collapsed when Event not selected', () => {
-    EventSearchWrapper.setState({ selected: false });
-    expect(EventSearchWrapper.find('.event-details')).toHaveLength(0);
-  });
-  test('event Details are shown when Event is selected', () => {
-    EventSearchWrapper.setState({ selected: true });
-    expect(EventSearchWrapper.find('.event-details')).toHaveLength(1);
-  });
-  test('accurate event Details are displayed when expanded', () => {
-    EventSearchWrapper.setState({ selected: true });
-    expect(EventSearchWrapper.find('.event-details').text()).toBe(eventInfo.description);
-  });
   test('Given that details are collapsed, Details button expands Event Details when clicked', () => {
     EventSearchWrapper.setState({ selected: false });
     expect(EventSearchWrapper.find('.event-details')).toHaveLength(0);
     EventSearchWrapper.find('.details-button').simulate('click');
     expect(EventSearchWrapper.find('.event-details')).toHaveLength(1);
+  });
+  test('accurate event Details are displayed when expanded', () => {
+    EventSearchWrapper.setState({ selected: true });
+    expect(EventSearchWrapper.find('.event-details').text()).toBe(eventInfo.description);
   });
   test('Given that details are expanded, Details button collapses Event Details when clicked', () => {
     EventSearchWrapper.setState({ selected: true });
