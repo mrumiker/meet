@@ -33,7 +33,14 @@ describe('<Event /> component', () => {
   });
   test('Given that details are collapsed, Details button expands Event Details when clicked', () => {
     EventSearchWrapper.setState({ selected: false });
+    expect(EventSearchWrapper.find('.event-details')).toHaveLength(0);
     EventSearchWrapper.find('.details-button').simulate('click');
     expect(EventSearchWrapper.find('.event-details')).toHaveLength(1);
-  })
+  });
+  test('Given that details are expanded, Details button collapses Event Details when clicked', () => {
+    EventSearchWrapper.setState({ selected: true });
+    expect(EventSearchWrapper.find('.event-details')).toHaveLength(1);
+    EventSearchWrapper.find('.details-button').simulate('click');
+    expect(EventSearchWrapper.find('.event-details')).toHaveLength(0);
+  });
 });
