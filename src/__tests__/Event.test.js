@@ -43,4 +43,9 @@ describe('<Event /> component', () => {
     EventSearchWrapper.find('.details-button').simulate('click');
     expect(EventSearchWrapper.find('.event-details')).toHaveLength(0);
   });
+  test('Given that details are collapsed, Details button text reads "Details"', () => {
+    EventSearchWrapper.setState({ selected: false });
+    expect(EventSearchWrapper.find('.event-details')).toHaveLength(0);
+    expect(EventSearchWrapper.find('.details-button').text()).toBe('Details');
+  });
 });
