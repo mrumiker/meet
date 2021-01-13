@@ -6,6 +6,12 @@ class Event extends Component {
     selected: false,
   }
 
+  handleButtonClicked = () => {
+    this.setState(prevState => ({
+      selected: !prevState.selected
+    }));
+  }
+
   render() {
     const { selected } = this.state;
     const { event } = this.props;
@@ -16,10 +22,8 @@ class Event extends Component {
         <p className="event-title">{event.summary}</p>
         {eventDetails}
         <br />
-        <button className="details-button">Details</button>
+        <button className="details-button" onClick={this.handleButtonClicked}>Details</button>
       </div>
-
-
     );
   }
 }
