@@ -26,5 +26,9 @@ describe('<Event /> component', () => {
   test('event Details are shown when Event is selected', () => {
     EventSearchWrapper.setState({ selected: true });
     expect(EventSearchWrapper.find(".event-details")).toHaveLength(1);
-  })
+  });
+  test('accurate event Details are displayed when expanded', () => {
+    EventSearchWrapper.setState({ selected: true });
+    expect(EventSearchWrapper.find('.event-details').text()).toBe(eventInfo.description);
+  });
 });

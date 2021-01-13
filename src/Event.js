@@ -9,7 +9,7 @@ class Event extends Component {
   render() {
     const { selected } = this.state;
     const { event } = this.props;
-    const eventDetails = selected ? <ul className="event-details"></ul> : ''
+    const eventDetails = selected ? <div className="event-details">{event.description}</div> : ''
 
     return (
       <div className="event-info">
