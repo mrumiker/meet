@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 class NumberOfEvents extends Component {
   render() {
-    return <input />
+    return <div className='NumberOfEvents'><input type='number' className='events' /></div>
   }
 }
 
