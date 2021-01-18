@@ -20,7 +20,7 @@ class Event extends Component {
       <button className="details-button" type="button" onClick={this.handleButtonClicked}>Details</button>;
 
     return (
-      <div className="event-info">
+      <div className="event">
         <p className="event-title">{event.summary}</p>
         {eventDetails}
         <br />
