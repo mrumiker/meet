@@ -11,7 +11,7 @@ describe('<Event /> component', () => {
     EventSearchWrapper = shallow(<Event event={eventInfo} />)
   });
   test('renders Event element', () => {
-    expect(EventSearchWrapper.find('.event-info')).toHaveLength(1);
+    expect(EventSearchWrapper.find('.event')).toHaveLength(1);
   });
   test('Event element shows correct Event title', () => {
     expect(EventSearchWrapper.find('.event-title').text()).toBe(eventInfo.summary);
