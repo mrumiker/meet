@@ -17,12 +17,12 @@ describe('<Event /> component', () => {
     expect(EventSearchWrapper.find('.event-title').text()).toBe(eventInfo.summary);
   });
   test('renders Details button', () => {
-    expect(EventSearchWrapper.find('.details-button')).toHaveLength(1);
+    expect(EventSearchWrapper.find('.details-btn')).toHaveLength(1);
   });
   test('Given that details are collapsed, Details button expands Event Details when clicked', () => {
     EventSearchWrapper.setState({ selected: false });
     expect(EventSearchWrapper.find('.event-details')).toHaveLength(0);
-    EventSearchWrapper.find('.details-button').simulate('click');
+    EventSearchWrapper.find('.details-btn').simulate('click');
     expect(EventSearchWrapper.find('.event-details')).toHaveLength(1);
   });
   test('accurate event Details are displayed when expanded', () => {
@@ -32,17 +32,17 @@ describe('<Event /> component', () => {
   test('Given that details are expanded, Details button collapses Event Details when clicked', () => {
     EventSearchWrapper.setState({ selected: true });
     expect(EventSearchWrapper.find('.event-details')).toHaveLength(1);
-    EventSearchWrapper.find('.details-button').simulate('click');
+    EventSearchWrapper.find('.details-btn').simulate('click');
     expect(EventSearchWrapper.find('.event-details')).toHaveLength(0);
   });
   test('Given that details are collapsed, Details button text reads "Details"', () => {
     EventSearchWrapper.setState({ selected: false });
     expect(EventSearchWrapper.find('.event-details')).toHaveLength(0);
-    expect(EventSearchWrapper.find('.details-button').text()).toBe('Details');
+    expect(EventSearchWrapper.find('.details-btn').text()).toBe('Details');
   });
   test('Given that details are expanded, Details button text reads "Collapse"', () => {
     EventSearchWrapper.setState({ selected: true });
     expect(EventSearchWrapper.find('.event-details')).toHaveLength(1);
-    expect(EventSearchWrapper.find('.details-button').text()).toBe('Collapse');
+    expect(EventSearchWrapper.find('.details-btn').text()).toBe('Collapse');
   });
 });
