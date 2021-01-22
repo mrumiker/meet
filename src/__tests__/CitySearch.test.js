@@ -4,8 +4,6 @@ import CitySearch from '../CitySearch';
 import { extractLocations } from '../api'
 import { mockData } from '../mock-data';
 
-
-
 describe('<CitySearch /> component', () => {
   let locations, CitySearchWrapper;
   beforeAll(() => {

@@ -10,3 +10,4 @@ describe('<EventList /> component', () => {
     expect(EventListWrapper.find(Event)).toHaveLength(mockData.length);
   });
 });
+
