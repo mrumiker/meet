@@ -46,9 +46,11 @@ describe('<App /> integration', () => {
     expect(AppWrapper.find(NumberOfEvents).props().numberOfEvents).toEqual(AppNumberOfEventsState);
     AppWrapper.unmount();
   });
-  test('App loads default number of events precisely', () => {
+  test('App loads default number of events precisely', async () => {
     const AppWrapper = mount(<App />);
     const AppNumberOfEventsState = AppWrapper.state('numberOfEvents');
+    await AppWrapper.instance().componentDidMount();
+    const AppEventsState = AppWrapper.state('events');
     expect(AppWrapper.find(EventList).find('.EventList li')).toHaveLength(AppNumberOfEventsState);
     AppWrapper.unmount();
   });
