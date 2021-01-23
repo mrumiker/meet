@@ -12,7 +12,7 @@ class App extends Component {
     events: [],
     locations: [],
     selectedLocation: 'all',
-    numberOfEvents: 10,
+    numberOfEvents: 3,
   }
 
   componentDidMount() {

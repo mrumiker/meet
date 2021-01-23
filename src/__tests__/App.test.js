@@ -3,6 +3,7 @@ import { shallow, mount } from 'enzyme';
 import App from '../App';
 import NumberOfEvents from '../NumberOfEvents';
 import EventList from '../EventList';
+import Event from '../Event';
 import CitySearch from '../CitySearch';
 import { mockData } from '../mock-data';
 import { extractLocations, getEvents } from '../api';
@@ -46,12 +47,13 @@ describe('<App /> integration', () => {
     expect(AppWrapper.find(NumberOfEvents).props().numberOfEvents).toEqual(AppNumberOfEventsState);
     AppWrapper.unmount();
   });
-  test('App loads default number of events precisely', async () => {
+  test('App loads default number of events when launched', async () => {
     const AppWrapper = mount(<App />);
     const AppNumberOfEventsState = AppWrapper.state('numberOfEvents');
-    await AppWrapper.instance().componentDidMount();
-    const AppEventsState = AppWrapper.state('events');
-    expect(AppWrapper.find(EventList).find('.EventList li')).toHaveLength(AppNumberOfEventsState);
+    const allEvents = await getEvents();
+    AppWrapper.setState({ events: allEvents.slice(0, AppNumberOfEventsState) });
+    const EventListWrapper = AppWrapper.find(EventList);
+    expect(EventListWrapper.find('EventList li')).toHaveLength(AppNumberOfEventsState);
     AppWrapper.unmount();
   });
   test('App updates "numberOfEvents" state when user changes number of events', async () => {
@@ -61,6 +63,7 @@ describe('<App /> integration', () => {
     const numberObject = { target: { value: 7 } };
     await NumberOfEventsWrapper.find('.events').simulate('change', numberObject);
     expect(AppWrapper.state('numberOfEvents')).toBe(7);
+
     AppWrapper.unmount();
   });
   test('App updates "selectedLocation" state when user selects location', async () => {
