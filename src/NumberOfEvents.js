@@ -11,7 +11,7 @@ class NumberOfEvents extends Component {
 
   render() {
     return (<div className='numberOfEvents'>
-      Number of Events: <input
+      <p># of Events to Display:</p> <input
         className='events'
         type='number'
         min='0'
