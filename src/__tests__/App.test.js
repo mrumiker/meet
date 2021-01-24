@@ -53,12 +53,11 @@ describe('<App /> integration', () => {
     const allEvents = await getEvents();
     AppWrapper.setState({ events: allEvents.slice(0, AppNumberOfEventsState) });
     const EventListWrapper = AppWrapper.find(EventList);
-    expect(EventListWrapper.find('EventList li')).toHaveLength(AppNumberOfEventsState);
+    expect(EventListWrapper.find('.EventList li')).toHaveLength(AppNumberOfEventsState);
     AppWrapper.unmount();
   });
   test('App updates "numberOfEvents" state when user changes number of events', async () => {
     const AppWrapper = mount(<App />);
-    AppWrapper.setState({ numberOfEvents: 4 });
     const NumberOfEventsWrapper = AppWrapper.find(NumberOfEvents);
     const newNumber = Math.floor(Math.random() * 72); //generate random positive integer that is less than the number of events in MockData
     const numberObject = { target: { value: newNumber } };
@@ -68,14 +67,11 @@ describe('<App /> integration', () => {
   });
   test('App displays correct number of events when Number of Events state is changed', async () => {
     const AppWrapper = mount(<App />);
-    const NumberOfEventsWrapper = AppWrapper.find(NumberOfEvents);
     const newNumber = Math.floor(Math.random() * 72); //generate random positive integer that is less than the number of events in MockData
     const allEvents = await getEvents();
-    const numberObject = { target: { value: newNumber } };
-    await NumberOfEventsWrapper.find('.events').simulate('change', numberObject);
     AppWrapper.setState({ events: allEvents.slice(0, newNumber) });
     const EventListWrapper = AppWrapper.find(EventList);
-    expect(EventListWrapper.find('EventList li')).toHaveLength(newNumber);
+    expect(EventListWrapper.find('.EventList li')).toHaveLength(newNumber);
     AppWrapper.unmount();
   });
   test('App updates "selectedLocation" state when user selects location', async () => {
