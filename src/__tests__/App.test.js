@@ -48,12 +48,16 @@ describe('<App /> integration', () => {
     AppWrapper.unmount();
   });
   test('App loads default number of events when launched', async () => {
+    // We expect the App to load the amount of events we have in our mock-data, which is 2
     const AppWrapper = mount(<App />);
-    const AppNumberOfEventsState = AppWrapper.state('numberOfEvents');
+    const expectedNumberOfEvents = mockData.length;
     const allEvents = await getEvents();
-    AppWrapper.setState({ events: allEvents.slice(0, AppNumberOfEventsState) });
+    // Since we are calling getEvents from localhost during testing, getEvents will return mock-data
+    // Mock-data only has 2 events in it, so we do not need to slice when setting the App state
+    AppWrapper.setState({ events: allEvents });
     const EventListWrapper = AppWrapper.find(EventList);
-    expect(EventListWrapper.find('EventList li')).toHaveLength(AppNumberOfEventsState);
+    // The reason I search for Event component instead of 'EventList li' is personal preference
+    expect(EventListWrapper.find(Event)).toHaveLength(expectedNumberOfEvents);
     AppWrapper.unmount();
   });
   test('App updates "numberOfEvents" state when user changes number of events', async () => {
@@ -68,7 +72,8 @@ describe('<App /> integration', () => {
   test('App displays correct number of events when Number of Events input is changed by user', async () => {
     const AppWrapper = mount(<App />);
     const NumberOfEventsWrapper = AppWrapper.find(NumberOfEvents);
-    const newNumber = 7;
+    // Since we only have 2 events in our mock-data, we are limited to simulating the result from picking 1 event to be displayed
+    const newNumber = 1;
     const allEvents = await getEvents();
     const numberObject = { target: { value: newNumber } };
     await NumberOfEventsWrapper.find('.events').simulate('change', numberObject);
