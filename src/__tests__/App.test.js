@@ -63,7 +63,18 @@ describe('<App /> integration', () => {
     const numberObject = { target: { value: 7 } };
     await NumberOfEventsWrapper.find('.events').simulate('change', numberObject);
     expect(AppWrapper.state('numberOfEvents')).toBe(7);
-
+    AppWrapper.unmount();
+  });
+  test('App displays correct number of events when Number of Events input is changed by user', async () => {
+    const AppWrapper = mount(<App />);
+    const NumberOfEventsWrapper = AppWrapper.find(NumberOfEvents);
+    const newNumber = 7;
+    const allEvents = await getEvents();
+    const numberObject = { target: { value: newNumber } };
+    await NumberOfEventsWrapper.find('.events').simulate('change', numberObject);
+    AppWrapper.setState({ events: allEvents.slice(0, newNumber) });
+    const EventListWrapper = AppWrapper.find(EventList);
+    expect(EventListWrapper.find('EventList li')).toHaveLength(newNumber);
     AppWrapper.unmount();
   });
   test('App updates "selectedLocation" state when user selects location', async () => {
