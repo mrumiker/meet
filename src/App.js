@@ -37,7 +37,7 @@ class App extends Component {
         events :
         events.filter((event) => event.location === location);
       this.setState({
-        events: locationEvents.slice(0, eventCount),
+        events: locationEvents,
         selectedLocation: location,
         numberOfEvents: eventCount,
       });
@@ -49,7 +49,7 @@ class App extends Component {
       <div className="App">
         <CitySearch locations={this.state.locations} numberOfEvents={this.state.numberOfEvents} updateEvents={this.updateEvents} />
         <NumberOfEvents numberOfEvents={this.state.numberOfEvents} selectedLocation={this.state.selectedLocation} updateEvents={this.updateEvents} />
-        <EventList events={this.state.events} />
+        <EventList events={this.state.events.slice(0, this.state.numberOfEvents)} />
       </div>
     );
   }

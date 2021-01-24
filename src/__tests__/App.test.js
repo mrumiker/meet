@@ -3,7 +3,6 @@ import { shallow, mount } from 'enzyme';
 import App from '../App';
 import NumberOfEvents from '../NumberOfEvents';
 import EventList from '../EventList';
-import Event from '../Event';
 import CitySearch from '../CitySearch';
 import { mockData } from '../mock-data';
 import { extractLocations, getEvents } from '../api';
@@ -25,33 +24,37 @@ describe('<App /> component', () => {
 });
 
 describe('<App /> integration', () => {
-
-  test('App passes "events" state as prop to EventList', () => {
-    const AppWrapper = mount(<App />);
-    const AppEventsState = AppWrapper.state('events');
-    expect(AppEventsState).not.toEqual(undefined);
-    expect(AppWrapper.find(EventList).props().events).toEqual(AppEventsState);
-    AppWrapper.unmount();
-  });
-  test('App passes "locations" state as a prop to CitySearch', () => {
+  test('App passes "locations" and "numberOfEvents" states as props to CitySearch', () => {
     const AppWrapper = mount(<App />);
     const AppLocationsState = AppWrapper.state('locations');
+    const AppNumberOfEventsState = AppWrapper.state('numberOfEvents');
     expect(AppLocationsState).not.toEqual(undefined);
     expect(AppWrapper.find(CitySearch).props().locations).toEqual(AppLocationsState);
+    expect(AppWrapper.find(CitySearch).props().numberOfEvents).toEqual(AppNumberOfEventsState);
     AppWrapper.unmount();
   });
-  test('App passes "numberOfEvents" state as a prop to NumberOfEvents', () => {
+  test('App passes "numberOfEvents" and "selectedLocation" states as props to NumberOfEvents', () => {
     const AppWrapper = mount(<App />);
     const AppNumberOfEventsState = AppWrapper.state('numberOfEvents');
+    const AppSelectedLocationState = AppWrapper.state('selectedLocation');
     expect(AppNumberOfEventsState).not.toEqual(undefined);
     expect(AppWrapper.find(NumberOfEvents).props().numberOfEvents).toEqual(AppNumberOfEventsState);
+    expect(AppWrapper.find(NumberOfEvents).props().selectedLocation).toEqual(AppSelectedLocationState);
+    AppWrapper.unmount();
+  });
+  test('App passes "events" state, limited by "number of events" state, as prop to EventList', () => {
+    const AppWrapper = mount(<App />);
+    const AppEventsState = AppWrapper.state('events');
+    const AppNumberOfEventsState = AppWrapper.state('numberOfEvents');
+    expect(AppEventsState).not.toEqual(undefined);
+    expect(AppWrapper.find(EventList).props().events).toEqual(AppEventsState.slice(0, AppNumberOfEventsState));
     AppWrapper.unmount();
   });
   test('App loads default number of events when launched', async () => {
     const AppWrapper = mount(<App />);
     const AppNumberOfEventsState = AppWrapper.state('numberOfEvents');
     const allEvents = await getEvents();
-    AppWrapper.setState({ events: allEvents.slice(0, AppNumberOfEventsState) });
+    AppWrapper.setState({ events: allEvents });
     const EventListWrapper = AppWrapper.find(EventList);
     expect(EventListWrapper.find('.EventList li')).toHaveLength(AppNumberOfEventsState);
     AppWrapper.unmount();
@@ -69,7 +72,8 @@ describe('<App /> integration', () => {
     const AppWrapper = mount(<App />);
     const newNumber = Math.floor(Math.random() * 72); //generate random positive integer that is less than the number of events in MockData
     const allEvents = await getEvents();
-    AppWrapper.setState({ events: allEvents.slice(0, newNumber) });
+    AppWrapper.setState({ events: allEvents });
+    AppWrapper.setState({ numberOfEvents: newNumber });
     const EventListWrapper = AppWrapper.find(EventList);
     expect(EventListWrapper.find('.EventList li')).toHaveLength(newNumber);
     AppWrapper.unmount();
@@ -91,18 +95,16 @@ describe('<App /> integration', () => {
     const selectedCity = suggestions[selectedIndex];
     await CitySearchWrapper.instance().handleItemClicked(selectedCity);
     const allEvents = await getEvents();
-    const numberOfEvents = AppWrapper.state('numberOfEvents');
-    const eventsToShow = allEvents.filter(event => event.location === selectedCity).slice(0, numberOfEvents);
+    const eventsToShow = allEvents.filter(event => event.location === selectedCity);
     expect(AppWrapper.state('events')).toEqual(eventsToShow);
     AppWrapper.unmount();
   });
-  test('get list of all events, limited by selected "number of events", when user selects "See all cities"', async () => {
+  test('get list of all events when user selects "See all cities"', async () => {
     const AppWrapper = mount(<App />);
-    const numberOfEvents = AppWrapper.state('numberOfEvents')
     const suggestionItems = AppWrapper.find(CitySearch).find('.suggestions li');
     await suggestionItems.at(suggestionItems.length - 1).simulate('click');
     const allEvents = await getEvents();
-    expect(AppWrapper.state('events')).toEqual(allEvents.slice(0, numberOfEvents));
+    expect(AppWrapper.state('events')).toEqual(allEvents);
     AppWrapper.unmount();
   })
 });
