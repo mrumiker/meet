@@ -60,15 +60,16 @@ describe('<App /> integration', () => {
     const AppWrapper = mount(<App />);
     AppWrapper.setState({ numberOfEvents: 4 });
     const NumberOfEventsWrapper = AppWrapper.find(NumberOfEvents);
-    const numberObject = { target: { value: 7 } };
+    const newNumber = Math.floor(Math.random() * 72); //generate random positive integer that is less than the number of events in MockData
+    const numberObject = { target: { value: newNumber } };
     await NumberOfEventsWrapper.find('.events').simulate('change', numberObject);
-    expect(AppWrapper.state('numberOfEvents')).toBe(7);
+    expect(AppWrapper.state('numberOfEvents')).toBe(newNumber);
     AppWrapper.unmount();
   });
-  test('App displays correct number of events when Number of Events input is changed by user', async () => {
+  test('App displays correct number of events when Number of Events state is changed', async () => {
     const AppWrapper = mount(<App />);
     const NumberOfEventsWrapper = AppWrapper.find(NumberOfEvents);
-    const newNumber = 7;
+    const newNumber = Math.floor(Math.random() * 72); //generate random positive integer that is less than the number of events in MockData
     const allEvents = await getEvents();
     const numberObject = { target: { value: newNumber } };
     await NumberOfEventsWrapper.find('.events').simulate('change', numberObject);
