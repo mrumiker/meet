@@ -62,7 +62,7 @@ describe('<App /> integration', () => {
   test('App updates "numberOfEvents" state when user changes number of events', async () => {
     const AppWrapper = mount(<App />);
     const NumberOfEventsWrapper = AppWrapper.find(NumberOfEvents);
-    const newNumber = Math.floor(Math.random() * 72); //generate random positive integer that is less than the number of events in MockData
+    const newNumber = Math.floor(Math.random() * (mockData.length)); //generate random positive integer that is </= the number of events in MockData
     const numberObject = { target: { value: newNumber } };
     await NumberOfEventsWrapper.find('.events').simulate('change', numberObject);
     expect(AppWrapper.state('numberOfEvents')).toBe(newNumber);
@@ -70,8 +70,8 @@ describe('<App /> integration', () => {
   });
   test('App displays correct number of events when Number of Events state is changed', async () => {
     const AppWrapper = mount(<App />);
-    const newNumber = Math.floor(Math.random() * 72); //generate random positive integer that is less than the number of events in MockData
     const allEvents = await getEvents();
+    const newNumber = Math.floor(Math.random() * (allEvents.length)); //generate random positive integer that is </= the number of events in MockData
     AppWrapper.setState({ events: allEvents });
     AppWrapper.setState({ numberOfEvents: newNumber });
     const EventListWrapper = AppWrapper.find(EventList);
@@ -81,8 +81,13 @@ describe('<App /> integration', () => {
   test('App updates "selectedLocation" state when user selects location', async () => {
     const AppWrapper = mount(<App />);
     const CitySearchWrapper = AppWrapper.find(CitySearch);
-    await CitySearchWrapper.instance().handleItemClicked('London, UK');
-    expect(AppWrapper.state('selectedLocation')).toBe('London, UK');
+    const locations = extractLocations(mockData);
+    CitySearchWrapper.setState({ suggestions: locations });
+    const suggestions = CitySearchWrapper.state('suggestions');
+    const selectedIndex = Math.floor(Math.random() * (suggestions.length));
+    const selectedCity = suggestions[selectedIndex];
+    await CitySearchWrapper.instance().handleItemClicked(selectedCity);
+    expect(AppWrapper.state('selectedLocation')).toBe(selectedCity);
     AppWrapper.unmount();
   });
   test('get list of events matching the city selected by the user', async () => {
