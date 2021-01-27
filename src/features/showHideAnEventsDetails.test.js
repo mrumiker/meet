@@ -7,14 +7,12 @@ const feature = loadFeature('./src/features/showHideAnEventsDetails.feature');
 
 defineFeature(feature, test => {
   test('Events are collapsed by Default', ({ given, when, then }) => {
-    let AppWrapper;
-    let EventListWrapper;
-    let EventWrapper;
-    given('that the user has received a list of events,', async () => {
-      AppWrapper = await mount(<App />);
-      EventListWrapper = AppWrapper.find('.EventList');
-      expect(EventListWrapper).toHaveLength(1);
+    let AppWrapper, EventWrapper;
+    given('that the user has received a list of events,', () => {
+      AppWrapper = mount(<App />);
+      expect(AppWrapper.find('.EventList')).toHaveLength(1);
     });
+
     when('the user has not selected an event,', () => {
 
     });
@@ -27,18 +25,22 @@ defineFeature(feature, test => {
     });
   });
   test('Click to Expand Event Details', ({ given, when, then }) => {
+    let AppWrapper, EventWrapper;
     given('that the user has received a list of events,', () => {
-
+      AppWrapper = mount(<App />);
     });
 
     when('the user selects an event,', () => {
-
+      AppWrapper.update();
+      AppWrapper.find('.details-btn').at(0).simulate('click');
     });
 
     then('the event’s element expands to show its details.', () => {
-
+      EventWrapper = AppWrapper.find('.event');
+      expect(EventWrapper.find('.event-details').at(0)).toHaveLength(1);
     });
   });
+
   test('Click to Collapse Event Details', ({ given, when, then }) => {
     given('that the user has expanded an event element,', () => {
 
