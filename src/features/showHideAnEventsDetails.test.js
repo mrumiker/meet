@@ -42,16 +42,20 @@ defineFeature(feature, test => {
   });
 
   test('Click to Collapse Event Details', ({ given, when, then }) => {
-    given('that the user has expanded an event element,', () => {
-
+    let AppWrapper, EventWrapper;
+    given('that the user has expanded an event element,', async () => {
+      AppWrapper = await mount(<App />);
+      AppWrapper.update();
+      AppWrapper.find('.details-btn').at(0).simulate('click');
     });
 
     when('the user closes that event element,', () => {
-
+      AppWrapper.find('.details-btn').at(0).simulate('click');
     });
 
     then('the event element collapses to hide its details.', () => {
-
+      EventWrapper = AppWrapper.find('.event');
+      expect(EventWrapper.find('.event-details').at(0)).toHaveLength(0);
     });
   });
 });
