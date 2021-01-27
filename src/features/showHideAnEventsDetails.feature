@@ -14,5 +14,3 @@ Feature: Show/Hide Event Details
     Given that the user has expanded an event element,
     When the user closes that event element,
     Then the event element collapses to hide its details.
-
-
