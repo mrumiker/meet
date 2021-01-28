@@ -25,10 +25,10 @@ defineFeature(feature, test => {
   });
   test('The user may specify the number of events to display', ({ given, when, then }) => {
     let AppWrapper;
-    given('that the user has specified a preferred number of events,', async () => {
+    given('that the user has specified a preferred number of events,', () => {
       AppWrapper = mount(<App />);
       const numberObject = { target: { value: 42 } };
-      await AppWrapper.find('.events').simulate('change', numberObject);
+      AppWrapper.find('.events').simulate('change', numberObject);
     });
 
     when('the user receives a list of events,', () => {
