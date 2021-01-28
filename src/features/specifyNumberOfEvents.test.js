@@ -3,7 +3,6 @@ import React from 'react';
 import { mount } from 'enzyme';
 import App from '../App';
 import NumberOfEvents from '../NumberOfEvents';
-import { mockData } from '../mock-data';
 
 const feature = loadFeature('./src/features/specifyNumberOfEvents.feature');
 
@@ -28,9 +27,8 @@ defineFeature(feature, test => {
     let AppWrapper;
     given('that the user has specified a preferred number of events,', async () => {
       AppWrapper = mount(<App />);
-      const NumberOfEventsWrapper = AppWrapper.find(NumberOfEvents);
       const numberObject = { target: { value: 42 } };
-      await NumberOfEventsWrapper.find('.events').simulate('change', numberObject);
+      await AppWrapper.find('.events').simulate('change', numberObject);
     });
 
     when('the user receives a list of events,', () => {
