@@ -4,6 +4,13 @@ class Alert extends Component {
   constructor(props) {
     super(props);
     this.color = null;
+    this.position = 'fixed';
+  }
+
+  getPosition = () => {
+    return {
+      position: this.position,
+    };
   }
 
   getStyle = () => {
@@ -14,7 +21,7 @@ class Alert extends Component {
 
   render() {
     return (
-      <div className="Alert">
+      <div className="Alert" style={this.getPosition()}>
         <p style={this.getStyle()}>{this.props.text}</p>
       </div>
     );
@@ -28,4 +35,12 @@ class InfoAlert extends Alert {
   }
 }
 
-export { InfoAlert };
+class ErrorAlert extends Alert {
+  constructor(props) {
+    super(props);
+    this.color = 'red';
+    this.position = 'static';
+  }
+}
+
+export { InfoAlert, ErrorAlert };
