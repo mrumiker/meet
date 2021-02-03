@@ -33,15 +33,9 @@ class App extends Component {
   }
 
   updateEvents = (location, eventCount) => {
-    getEvents().then((events) => {
-      const locationEvents = (location === 'all') ?
-        events :
-        events.filter((event) => event.location === location);
-      this.setState({
-        events: locationEvents,
-        selectedLocation: location,
-        numberOfEvents: eventCount,
-      });
+    this.setState({
+      selectedLocation: location,
+      numberOfEvents: eventCount,
     });
   }
 
@@ -49,14 +43,16 @@ class App extends Component {
 
     let { events, locations, selectedLocation, numberOfEvents } = this.state;
 
+    const filteredEvents = selectedLocation === 'all' ? events : events.filter((event) => event.location === selectedLocation);
+
     return (
       <div className="App">
         <CitySearch locations={locations} numberOfEvents={numberOfEvents} updateEvents={this.updateEvents} />
         <NumberOfEvents numberOfEvents={numberOfEvents} selectedLocation={selectedLocation} updateEvents={this.updateEvents} />
-        <EventList events={events.slice(0, numberOfEvents)} />
-        {(numberOfEvents >= events.length) ?
-          <WarningAlert text={`End of List. There are ${events.length} events scheduled in ${selectedLocation} at this time.`} /> :
-          <WarningAlert text={`There are ${events.length} events scheduled in ${selectedLocation}.  Increase the Number of Events to see more!`} />
+        <EventList events={filteredEvents.slice(0, numberOfEvents)} />
+        {(numberOfEvents >= filteredEvents.length) ?
+          <WarningAlert text={`End of List. There are ${filteredEvents.length} events scheduled in ${selectedLocation} at this time.`} /> :
+          <WarningAlert text={`There are ${filteredEvents.length} events scheduled in ${selectedLocation}.  Increase the Number of Events to see more!`} />
         }
       </div>
     );
