@@ -46,14 +46,17 @@ class App extends Component {
   }
 
   render() {
+
+    let { events, locations, selectedLocation, numberOfEvents } = this.state;
+
     return (
       <div className="App">
-        <CitySearch locations={this.state.locations} numberOfEvents={this.state.numberOfEvents} updateEvents={this.updateEvents} />
-        <NumberOfEvents numberOfEvents={this.state.numberOfEvents} selectedLocation={this.state.selectedLocation} updateEvents={this.updateEvents} />
-        <EventList events={this.state.events.slice(0, this.state.numberOfEvents)} />
-        {(this.state.numberOfEvents >= this.state.events.length) ?
-          <WarningAlert text={`End of List. There are ${this.state.events.length} events scheduled in ${this.state.selectedLocation} at this time.`} /> :
-          <WarningAlert text={`There are ${this.state.events.length} events scheduled in ${this.state.selectedLocation}!  Increase the Number of Events to see more.`} />
+        <CitySearch locations={locations} numberOfEvents={numberOfEvents} updateEvents={this.updateEvents} />
+        <NumberOfEvents numberOfEvents={numberOfEvents} selectedLocation={selectedLocation} updateEvents={this.updateEvents} />
+        <EventList events={events.slice(0, numberOfEvents)} />
+        {(numberOfEvents >= events.length) ?
+          <WarningAlert text={`End of List. There are ${events.length} events scheduled in ${selectedLocation} at this time.`} /> :
+          <WarningAlert text={`There are ${events.length} events scheduled in ${selectedLocation}.  Increase the Number of Events to see more!`} />
         }
       </div>
     );

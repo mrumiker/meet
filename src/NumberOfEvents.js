@@ -28,7 +28,7 @@ class NumberOfEvents extends Component {
         //min='0'
         step='1'
         value={this.props.numberOfEvents}
-        onBlur={this.handleInputChanged} />
+        onChange={this.handleInputChanged} />
       <ErrorAlert text={this.state.errorText} />
     </div>);
   }
