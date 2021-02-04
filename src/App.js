@@ -5,7 +5,7 @@ import NumberOfEvents from './NumberOfEvents';
 import EventList from './EventList';
 import CitySearch from './CitySearch';
 import { extractLocations, getEvents } from './api';
-import { WarningAlert } from './Alert'
+import { WarningAlert, ErrorAlert } from './Alert'
 
 class App extends Component {
 
@@ -44,11 +44,13 @@ class App extends Component {
     let { events, locations, selectedLocation, numberOfEvents } = this.state;
 
     const filteredEvents = selectedLocation === 'all' ? events : events.filter((event) => event.location === selectedLocation);
+    const offlineAlert = navigator.onLine ? '' : <ErrorAlert text={'You are offline. Results loaded from cache may not be up-to-date.'} />
 
     return (
       <div className="App">
         <CitySearch locations={locations} numberOfEvents={numberOfEvents} updateEvents={this.updateEvents} />
         <NumberOfEvents numberOfEvents={numberOfEvents} selectedLocation={selectedLocation} updateEvents={this.updateEvents} />
+        {offlineAlert}
         <EventList events={filteredEvents.slice(0, numberOfEvents)} />
         {(numberOfEvents >= filteredEvents.length) ?
           <WarningAlert text={`End of List. There are ${filteredEvents.length} events scheduled in ${selectedLocation} at this time.`} /> :
