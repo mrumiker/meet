@@ -55,17 +55,18 @@ class App extends Component {
 
     const filteredEvents = selectedLocation === 'all' ? events : events.filter((event) => event.location === selectedLocation);
     const offlineAlert = navigator.onLine ? '' : <ErrorAlert text={'You are offline. Results loaded from cache may not be up-to-date.'} />;
+    const endOfListAlert = numberOfEvents >= filteredEvents.length ?
+      <WarningAlert text={`End of List. There are ${filteredEvents.length} events scheduled in ${selectedLocation} at this time.`} /> :
+      <WarningAlert text={`There are ${filteredEvents.length} events scheduled in ${selectedLocation}.  Increase the Number of Events to see more!`} />
 
     return (
       <div className="App">
+        <h1>Meet App</h1>
         <CitySearch locations={locations} numberOfEvents={numberOfEvents} updateEvents={this.updateEvents} />
         <NumberOfEvents numberOfEvents={numberOfEvents} selectedLocation={selectedLocation} updateEvents={this.updateEvents} />
         {offlineAlert}
         <EventList events={filteredEvents.slice(0, numberOfEvents)} />
-        {(numberOfEvents >= filteredEvents.length) ?
-          <WarningAlert text={`End of List. There are ${filteredEvents.length} events scheduled in ${selectedLocation} at this time.`} /> :
-          <WarningAlert text={`There are ${filteredEvents.length} events scheduled in ${selectedLocation}.  Increase the Number of Events to see more!`} />
-        }
+        {endOfListAlert}
       </div>
     );
   }
