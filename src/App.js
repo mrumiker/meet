@@ -39,12 +39,22 @@ class App extends Component {
     });
   }
 
+  getData = () => {
+    const { locations, events } = this.state;
+    const data = locations.map((location) => {
+      const number = events.filter((event) => event.location === location).length;
+      const city = location.split(' ').shift();
+      return { city, number };
+    });
+    return data;
+  };
+
   render() {
 
     let { events, locations, selectedLocation, numberOfEvents } = this.state;
 
     const filteredEvents = selectedLocation === 'all' ? events : events.filter((event) => event.location === selectedLocation);
-    const offlineAlert = navigator.onLine ? '' : <ErrorAlert text={'You are offline. Results loaded from cache may not be up-to-date.'} />
+    const offlineAlert = navigator.onLine ? '' : <ErrorAlert text={'You are offline. Results loaded from cache may not be up-to-date.'} />;
 
     return (
       <div className="App">
