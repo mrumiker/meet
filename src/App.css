@@ -220,7 +220,7 @@ input[type="number"] {
 
 
 
-@media only screen and (min-width: 992px) {
+@media only screen and (min-width: 1120px) {
   .data-vis-wrapper {
     flex-direction: row;
   }

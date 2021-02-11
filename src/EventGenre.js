@@ -5,19 +5,17 @@ const EventGenre = ({ events }) => {
 
   const [data, setData] = useState([]);
 
-  function getData() {
-    const genres = ['React', 'JavaScript', 'Node', 'jQuery', 'AngularJS'];
-    const data = genres.map((genre) => {
-      const value = (events.filter(e => {
-        return e.summary.split(' ').includes(genre);
-      })).length;
-      return { name: genre, value };
-    });
-    return data;
-  }
-
   useEffect(() => {
-    setData(() => getData());
+    setData(() => {
+      const genres = ['React', 'JavaScript', 'Node', 'jQuery', 'AngularJS'];
+      const data = genres.map((genre) => {
+        const value = (events.filter(e => {
+          return e.summary.split(' ').includes(genre);
+        })).length;
+        return { name: genre, value };
+      });
+      return data;
+    });
   }, [events]);
 
   return (
