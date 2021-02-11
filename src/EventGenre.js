@@ -5,6 +5,8 @@ const EventGenre = ({ events }) => {
 
   const [data, setData] = useState([]);
 
+  const colors = ['FireBrick', 'DarkGreen', 'MidnightBlue', 'DarkMagenta', 'DeepPink'];
+
   useEffect(() => {
     setData(() => {
       const genres = ['React', 'JavaScript', 'Node', 'jQuery', 'AngularJS'];
@@ -31,13 +33,15 @@ const EventGenre = ({ events }) => {
           dataKey="value"
           label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
         >
+          {
+            data.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={colors[index]} />
+            ))
+          }
         </Pie>
       </PieChart>
     </ResponsiveContainer >
   );
 }
-
-
-
 
 export default EventGenre;
