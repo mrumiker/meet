@@ -17,7 +17,7 @@ p {
   margin: 5px 0;
 }
 
-.scatter-chart {
+.scatter-chart .pie-chart {
   width: 100%;
 }
 
@@ -153,18 +153,17 @@ input[type="number"] {
 
 .event-genre {
   width: 100%;
-  border: 3px solid black;
 }
 
-.event-genre .recharts-wrapper {
+.pie-chart .recharts-wrapper {
   margin: 0 auto;
   width: 300px !important;
 }
 
-.event-genre svg {
+.pie-chart svg {
   position: relative;
-  left: -50px;
-}
+  left: -50px; 
+} 
 
 .login-button {
   color: #494949;
