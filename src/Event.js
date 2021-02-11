@@ -25,7 +25,7 @@ class Event extends Component {
         <br />
         <h2 className="group-name">{event.location}</h2>
         <br />
-        <p>{event.start.dateTime}  {event.start.timeZone}</p>
+        <p>{`${new Date(event.start.dateTime)}`}</p>
         <br />
         {eventDetails}
         <br />
