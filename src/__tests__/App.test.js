@@ -74,8 +74,7 @@ describe('<App /> integration', () => {
     const newNumber = Math.floor(Math.random() * (allEvents.length)); //generate random positive integer that is </= the number of events in MockData
     AppWrapper.setState({ events: allEvents });
     AppWrapper.setState({ numberOfEvents: newNumber });
-    const EventListWrapper = AppWrapper.find(EventList);
-    expect(EventListWrapper.find('.EventList li')).toHaveLength(newNumber);
+    expect(AppWrapper.find('.EventList li')).toHaveLength(newNumber);
     AppWrapper.unmount();
   });
   test('App updates "selectedLocation" state when user selects location', async () => {
@@ -98,10 +97,11 @@ describe('<App /> integration', () => {
     const suggestions = CitySearchWrapper.state('suggestions');
     const selectedIndex = Math.floor(Math.random() * (suggestions.length));
     const selectedCity = suggestions[selectedIndex];
-    await CitySearchWrapper.instance().handleItemClicked(selectedCity);
     const allEvents = await getEvents();
+    AppWrapper.setState({ events: allEvents });
+    AppWrapper.setState({ selectedLocation: selectedCity });
     const eventsToShow = allEvents.filter(event => event.location === selectedCity);
-    expect(AppWrapper.state('events')).toEqual(eventsToShow);
+    expect(AppWrapper.find('.EventList li')).toHaveLength(eventsToShow.length);
     AppWrapper.unmount();
   });
   test('get list of all events when user selects "See all cities"', async () => {
