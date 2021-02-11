@@ -68,23 +68,25 @@ class App extends Component {
         <NumberOfEvents numberOfEvents={numberOfEvents} selectedLocation={selectedLocation} updateEvents={this.updateEvents} />
         <div className="data-vis-wrapper">
           <EventGenre events={events} />
-          <h4>Events in each city</h4>
-          <ResponsiveContainer height={400}>
-            <ScatterChart
-              margin={{
-                top: 20,
-                right: 20,
-                bottom: 20,
-                left: 20,
-              }}
-            >
-              <CartesianGrid />
-              <XAxis type="category" dataKey="city" name="City" />
-              <YAxis type="number" dataKey="number" name="Number of Events" />
-              <Tooltip label="What is this" cursor={{ strokeDasharray: '3 3' }} />
-              <Scatter data={this.getData()} fill="#8884d8" />
-            </ScatterChart>
-          </ResponsiveContainer>
+          <div className="scatter-chart">
+            <h4>Events in each city</h4>
+            <ResponsiveContainer height={400} >
+              <ScatterChart
+                margin={{
+                  top: 20,
+                  right: 20,
+                  bottom: 20,
+                  left: 20,
+                }}
+              >
+                <CartesianGrid />
+                <XAxis type="category" dataKey="city" name="City" />
+                <YAxis type="number" dataKey="number" name="Number of Events" />
+                <Tooltip label="What is this" cursor={{ strokeDasharray: '3 3' }} />
+                <Scatter data={this.getData()} fill="#8884d8" />
+              </ScatterChart>
+            </ResponsiveContainer>
+          </div>
         </div>
         {offlineAlert}
         <EventList events={filteredEvents.slice(0, numberOfEvents)} />
