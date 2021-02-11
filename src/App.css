@@ -151,6 +151,21 @@ input[type="number"] {
   overflow: visible;
 }
 
+.event-genre {
+  width: 100%;
+  border: 3px solid black;
+}
+
+.event-genre .recharts-wrapper {
+  margin: 0 auto;
+  width: 300px !important;
+}
+
+.event-genre svg {
+  position: relative;
+  left: -50px;
+}
+
 .login-button {
   color: #494949;
   text-transform: uppercase;
@@ -218,5 +233,9 @@ input[type="number"] {
 
   .scatter-chart {
     width: 66.66667%;
+  }
+
+  .pie-chart {
+    width: 33.3333%
   }
 }

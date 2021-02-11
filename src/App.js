@@ -67,7 +67,10 @@ class App extends Component {
         <CitySearch locations={locations} numberOfEvents={numberOfEvents} updateEvents={this.updateEvents} />
         <NumberOfEvents numberOfEvents={numberOfEvents} selectedLocation={selectedLocation} updateEvents={this.updateEvents} />
         <div className="data-vis-wrapper">
-          <EventGenre events={events} />
+          <div className="pie-chart">
+            <h4>Event Topics</h4>
+            <EventGenre events={events} />
+          </div>
           <div className="scatter-chart">
             <h4>Events in each city</h4>
             <ResponsiveContainer height={400} >
