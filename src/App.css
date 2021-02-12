@@ -238,3 +238,9 @@ input[type="number"] {
     width: 33.3333%
   }
 }
+
+@media (max-width: 425px) {
+  .data-vis-wrapper {
+    display: none;
+  }
+} 
