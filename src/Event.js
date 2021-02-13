@@ -16,6 +16,7 @@ class Event extends Component {
     const { selected } = this.state;
     const { event } = this.props;
     const eventDetails = selected ? <div className="event-details">{event.description}</div> : '';
+    const eventLink = selected ? <><br /><a href={event.htmlLink} target="_blank" rel="noreferrer">See details on Google Calendar</a></> : '';
     const detailsButton = selected ? <button className="details-btn" type="button" onClick={this.handleButtonClicked}>Collapse</button> :
       <button className="details-btn" type="button" onClick={this.handleButtonClicked}>Details</button>;
 
@@ -28,6 +29,7 @@ class Event extends Component {
         <p>{`${new Date(event.start.dateTime)}`}</p>
         <br />
         {eventDetails}
+        {eventLink}
         <br />
         {detailsButton}
       </div>
