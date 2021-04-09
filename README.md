@@ -1,7 +1,16 @@
 
 Meet App is a serverless, progressive web application that gives users the inside track to the happenings in their city.
 
+A Serverless, Progressive Web App (**PWA**) made with Test Driven Development (**TDD**).
 
+![Meet App](/img/MeetScreenShot.png)
+
+## Built With:
+* React
+* Google Calendar API
+* AWS Lambda
+
+## User Stories
 1. As a user,
     I should be able to filter events by city
     So that I can see the list of events that take place in that city.
@@ -47,9 +56,6 @@ Meet App is a serverless, progressive web application that gives users the insid
   So that I know what events are organized in which city.
 
   Scenario 1: Given that the user has selected a city, When the user selects data visualization, Then the user will see a chart showing how many different kinds of events are scheduled in that city.
-
-
-
 
 # Getting Started with Create React App
 
