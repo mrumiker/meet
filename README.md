@@ -9,6 +9,7 @@ A Serverless, Progressive Web App (**PWA**) made with Test Driven Development (*
 * React
 * Google Calendar API
 * AWS Lambda
+* Recharts (data visualization)
 
 ## User Stories
 1. As a user,
